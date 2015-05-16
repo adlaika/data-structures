@@ -57,11 +57,28 @@ binaryTreeMethods.depthFirstLog = function(fn, node) {
   }
 };
 
-binaryTreeMethods.breadthFirstLog = function (fn, tree) {
-  tree = tree || this;
+binaryTreeMethods.breadthFirstLog = function (fn) {
+  var storage = {};
+  var depth = 0;
 
-  fn.call(this, tree.value);
-}
+  //TODO: FIX DEPTH climbing out of controoollll
+
+  this.depthFirstLog(function(){
+    depth++;
+    if (!storage.hasOwnProperty(depth)) {
+      storage[depth] = [];
+    } else {
+      storage[depth].push(this.value);
+    }
+  }, this);
+
+  //call function on all things in magic storage
+  for (var i = 0; i < depth; i++) {
+    _.each(storage[i], function (elem) {
+      fn.call(this, elem);
+    })
+  }
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?
