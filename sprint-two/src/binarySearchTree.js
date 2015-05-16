@@ -26,15 +26,41 @@ binaryTreeMethods.insert = function(value) {
   }
 };
 
-binaryTreeMethods.contains = function(value) {
+binaryTreeMethods.contains = function(value, node) {
+  var node = node || this;
 
+  //base case
+  if(node.value === value) {
+    return true;
+  } else if(value > node.value) {
+    if(node.right !== undefined) {
+      return this.contains(value, node.right);
+    }
+  } else if (value < node.value) {
+    if(node.left !== undefined) {
+      return this.contains(value, node.left);
+    }
+  }
+
+  return false;
 };
 
-binaryTreeMethods.depthFirstLog = function() {
+binaryTreeMethods.depthFirstLog = function(fn, node) {
+  var node = node || this;
 
+  fn.call(this, node.value);
+  if (node.left !== undefined) {
+    this.depthFirstLog(fn, node.left);
+  }
+  if (node.right !== undefined) {
+    this.depthFirstLog(fn, node.right);
+  }
 };
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
+insert: O(n)
+contains: O(n)
+depthFirstLog: O(n)
  */
