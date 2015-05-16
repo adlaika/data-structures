@@ -9,10 +9,6 @@ var Tree = function(value){
   return newTree;
 };
 
-
-
-
-
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
@@ -30,6 +26,18 @@ treeMethods.contains = function(target){
     result = result || child.contains(target);
   });
   return result;
+};
+
+treeMethods.traverse = function(fn, tree) {
+  tree = tree || this;
+
+  if(this.value !== undefined) {
+    fn.call(this, tree.value);
+  }
+  _.each(this.children, function(child){
+    child.traverse(fn, child);
+  });
+
 };
 
 
