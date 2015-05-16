@@ -57,6 +57,11 @@ binaryTreeMethods.depthFirstLog = function(fn, node) {
   }
 };
 
+binaryTreeMethods.breadthFirstLog = function (fn, tree) {
+  tree = tree || this;
+
+  fn.call(this, tree.value);
+}
 
 /*
  * Complexity: What is the time complexity of the above functions?
